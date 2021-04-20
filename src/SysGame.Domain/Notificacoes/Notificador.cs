@@ -8,9 +8,9 @@ namespace SysGame.Domain.Notificacoes
     {
         private List<Notificacao> _notificacoes;
 
-        public Notificador(List<Notificacao> notificacoes)
+        public Notificador()
         {
-            _notificacoes = notificacoes;
+            _notificacoes = new List<Notificacao>();
         }
 
         public void Handle(Notificacao notificacao)

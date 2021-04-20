@@ -23,14 +23,14 @@ namespace SysGame.Infra.Data.Repository
                                                 JOGOID,
                                                 NOME,
                                                 EMPRESTADO,
-                                                PROPRIETARIO
+                                                PROPRIETARIOID
                                             ) 
                                                 VALUES
                                             (
                                                 @JOGOID,
                                                 @NOME,
                                                 @EMPRESTADO,
-                                                @PROPRIETARIO
+                                                @PROPRIETARIOID
                                             )";
                                         
                 try
@@ -42,7 +42,7 @@ namespace SysGame.Infra.Data.Repository
                     parametrosJogo.Add("JOGOID", jogo.JogoId, DbType.Guid, ParameterDirection.Input);
                     parametrosJogo.Add("NOME", jogo.Nome, DbType.String, ParameterDirection.Input);
                     parametrosJogo.Add("EMPRESTADO", jogo.Emprestado, DbType.Boolean, ParameterDirection.Input);
-                    parametrosJogo.Add("PROPRIETARIO", jogo.ProprietarioId, DbType.Guid, ParameterDirection.Input);
+                    parametrosJogo.Add("PROPRIETARIOID", jogo.ProprietarioId, DbType.Guid, ParameterDirection.Input);
 
                     await con.ExecuteAsync(sqlAdicionarJogo, param: parametrosJogo);
                 }
@@ -117,11 +117,11 @@ namespace SysGame.Infra.Data.Repository
                         con.Open();
 
                     DynamicParameters parametroJogo = new DynamicParameters();
-                    parametroJogo.Add("JOGOID", jogo.JogoId, DbType.Guid, ParameterDirection.Input);
+                    parametroJogo.Add("JOGOID", id, DbType.Guid, ParameterDirection.Input);
 
                     jogo = await con.QueryFirstOrDefaultAsync<Jogo>(sqlObterJogoPorId, param: parametroJogo);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;

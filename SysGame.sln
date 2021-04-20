@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysGame.Domain", "src\SysGame.Domain\SysGame.Domain.csproj", "{389C03BD-91D9-491B-AD3E-E7EB8A76AC4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SysGame.Domain", "src\SysGame.Domain\SysGame.Domain.csproj", "{389C03BD-91D9-491B-AD3E-E7EB8A76AC4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysGame.Infra.Data", "src\SysGame.Infra.Data\SysGame.Infra.Data.csproj", "{A9BC0FA8-99C5-4354-B43D-747C4703EF0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SysGame.Infra.Data", "src\SysGame.Infra.Data\SysGame.Infra.Data.csproj", "{A9BC0FA8-99C5-4354-B43D-747C4703EF0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sysgame.API", "src\Sysgame.API\Sysgame.API.csproj", "{684A520D-93E8-4B81-8B16-845719B87FFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sysgame.API", "src\Sysgame.API\Sysgame.API.csproj", "{684A520D-93E8-4B81-8B16-845719B87FFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysGame.CrossCutting.IoC", "src\SysGame.CrossCutting.IoC\SysGame.CrossCutting.IoC.csproj", "{D3376AB0-8A7F-4F05-8802-279DFAA91632}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{684A520D-93E8-4B81-8B16-845719B87FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{684A520D-93E8-4B81-8B16-845719B87FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{684A520D-93E8-4B81-8B16-845719B87FFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3376AB0-8A7F-4F05-8802-279DFAA91632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3376AB0-8A7F-4F05-8802-279DFAA91632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3376AB0-8A7F-4F05-8802-279DFAA91632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3376AB0-8A7F-4F05-8802-279DFAA91632}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

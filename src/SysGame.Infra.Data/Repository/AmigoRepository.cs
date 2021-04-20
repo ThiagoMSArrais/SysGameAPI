@@ -41,7 +41,7 @@ namespace SysGame.Infra.Data.Repository
                     await con.ExecuteAsync(sqlAdicionarAmigo, param: parametrosAmigo);
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -71,7 +71,7 @@ namespace SysGame.Infra.Data.Repository
 
                     await con.ExecuteAsync(sqlAtualizarAmigo, param: parametrosAmigo);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -109,7 +109,7 @@ namespace SysGame.Infra.Data.Repository
                     amigo = await con.QueryFirstOrDefaultAsync<Amigo>(sqlObterAmigo, param: parametrosAmigo);
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -144,7 +144,7 @@ namespace SysGame.Infra.Data.Repository
                     amigos = await con.QueryAsync<Amigo>(sqlObterAmigo);
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -175,7 +175,7 @@ namespace SysGame.Infra.Data.Repository
 
                     await con.ExecuteAsync(sqlRemoverAmigo, param: parametrosAmigo);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;

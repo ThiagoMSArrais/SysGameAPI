@@ -1,36 +1,49 @@
 ﻿using SysGame.Domain.Interfaces;
 using SysGame.Domain.Models;
+using SysGame.Domain.Models.Validations;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SysGame.Domain.Services
 {
-    public class JogoService : IJogoServices
+    public class JogoService : BaseService, IJogoServices
     {
-        public Task Adicionar(Jogo jogo)
+        private readonly IJogoRepository _jogoRepository;
+
+        public JogoService(IJogoRepository jogoRepository,
+                           INotificador notificador) : base(notificador)
         {
-            throw new NotImplementedException();
+            _jogoRepository = jogoRepository;
         }
 
-        public Task Atualizar(Jogo jogo)
+        public async Task Adicionar(Jogo jogo)
         {
-            throw new NotImplementedException();
+            if (!ExecutarValidacao(new JogoValidation(), jogo)) return;
+
+            await _jogoRepository.Adicionar(jogo);
         }
 
-        public Task<Jogo> ObterJogoPorId(Guid id)
+        public async Task Atualizar(Jogo jogo)
         {
-            throw new NotImplementedException();
+            if (!ExecutarValidacao(new JogoValidation(), jogo)) return;
+
+            await _jogoRepository.Atualizar(jogo);
         }
 
-        public Task<IEnumerable<Jogo>> ObterJogos()
+        public async Task<Jogo> ObterJogoPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return await _jogoRepository.ObterJogoPorId(id);
         }
 
-        public Task Remover(Guid id)
+        public async Task<IEnumerable<Jogo>> ObterJogos()
         {
-            throw new NotImplementedException();
+            return await _jogoRepository.ObterJogos();
+        }
+
+        public async Task Remover(Guid id)
+        {
+            await _jogoRepository.Remover(id);
         }
     }
 }

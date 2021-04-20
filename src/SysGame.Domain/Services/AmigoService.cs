@@ -1,38 +1,49 @@
 ﻿using SysGame.Domain.Interfaces;
 using SysGame.Domain.Models;
+using SysGame.Domain.Models.Validations;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SysGame.Domain.Services
 {
-    public class AmigoService : IAmigoServices
+    public class AmigoService : BaseService, IAmigoServices
     {
-        public Task Adicionar(Amigo amigo)
+        private readonly IAmigoRepository _amigoRepository;
+
+        public AmigoService(IAmigoRepository amigoRepository,
+                            INotificador notificador) : base(notificador)
         {
-            throw new NotImplementedException();
+            _amigoRepository = amigoRepository;
         }
 
-        public Task Atualizar(Amigo amigo)
+        public async Task Adicionar(Amigo amigo)
         {
-            throw new NotImplementedException();
+            if (!ExecutarValidacao(new AmigoValidation(), amigo)) return;
+
+            await _amigoRepository.Adicionar(amigo);
         }
 
-        public Task<Amigo> ObterAmigoPorId(Guid id)
+        public async Task Atualizar(Amigo amigo)
         {
-            throw new NotImplementedException();
+            if (!ExecutarValidacao(new AmigoValidation(), amigo)) return;
+
+            await _amigoRepository.Atualizar(amigo);
         }
 
-        public Task<IEnumerable<Amigo>> ObterAmigos()
+        public async Task<Amigo> ObterAmigoPorId(Guid id)
         {
-            throw new NotImplementedException();
+            return await _amigoRepository.ObterAmigoPorId(id);
         }
 
-        public Task Remover(Guid id)
+        public async Task<IEnumerable<Amigo>> ObterAmigos()
         {
-            throw new NotImplementedException();
+            return await _amigoRepository.ObterAmigos();
+        }
+
+        public async Task Remover(Guid id)
+        {
+            await _amigoRepository.Remover(id);
         }
     }
 }

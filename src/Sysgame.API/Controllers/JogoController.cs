@@ -42,7 +42,7 @@ namespace Sysgame.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<JogoViewModel>> Adicionar(JogoViewModel jogoViewModel)
+        public async Task<ActionResult<JogoViewModel>> Adicionar([FromBody] JogoViewModel jogoViewModel)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -54,7 +54,7 @@ namespace Sysgame.API.Controllers
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<JogoViewModel>> Atualizar(Guid id, [FromBody] JogoViewModel jogoViewModel)
         {
-            if (id != jogoViewModel.AmigoId)
+            if (id != jogoViewModel.JogoId)
             {
                 NotificarErro("O id informado não é o mesmo que foi passado");
                 return CustomResponse(jogoViewModel);

@@ -23,14 +23,16 @@ namespace SysGame.Infra.Data.Repository
                                                 JOGOID,
                                                 NOME,
                                                 EMPRESTADO,
-                                                PROPRIETARIOID
+                                                PROPRIETARIOID,
+                                                AMIGOID
                                             ) 
                                                 VALUES
                                             (
                                                 @JOGOID,
                                                 @NOME,
                                                 @EMPRESTADO,
-                                                @PROPRIETARIOID
+                                                @PROPRIETARIOID,
+                                                @AMIGOID
                                             )";
                                         
                 try
@@ -43,6 +45,8 @@ namespace SysGame.Infra.Data.Repository
                     parametrosJogo.Add("NOME", jogo.Nome, DbType.String, ParameterDirection.Input);
                     parametrosJogo.Add("EMPRESTADO", jogo.Emprestado, DbType.Boolean, ParameterDirection.Input);
                     parametrosJogo.Add("PROPRIETARIOID", jogo.ProprietarioId, DbType.Guid, ParameterDirection.Input);
+                    parametrosJogo.Add("AMIGOID", jogo.AmigoId, DbType.Guid, ParameterDirection.Input);
+
 
                     await con.ExecuteAsync(sqlAdicionarJogo, param: parametrosJogo);
                 }
@@ -65,7 +69,7 @@ namespace SysGame.Infra.Data.Repository
             {
                 string sqlAtualizarJogo = @"UPDATE JOGO " +
                                            "SET EMPRESTADO = @EMPRESTADO," +
-                                           "    AMIGOID = @AMIGOID" +
+                                           "    AMIGOID = @AMIGOID " +
                                            "WHERE" +
                                            "    JOGOID = @JOGOID";
 
@@ -81,7 +85,7 @@ namespace SysGame.Infra.Data.Repository
 
                     await con.ExecuteAsync(sqlAtualizarJogo, param: parametrosJogo);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
                     throw;
@@ -99,15 +103,18 @@ namespace SysGame.Infra.Data.Repository
             using(var con = Connection)
             {
                 string sqlObterJogoPorId = @"SELECT
-                                                    JOGOID AS JogoId,
-                                                    NOME AS Nome,
-                                                    EMPRESTADO AS Emprestado,
-                                                    PROPRIETARIOID AS ProprietarioId,
-                                                    AMIGOID AS AmigoId
+                                                    J.JOGOID AS JogoId,
+                                                    J.NOME AS Nome,
+                                                    J.EMPRESTADO AS Emprestado,
+                                                    J.PROPRIETARIOID AS ProprietarioId,
+                                                    J.AMIGOID AS AmigoId,
+                                                    A.Nome AS NomeDoAmigoComJogoEmprestado                                                   
                                             FROM
-                                                    JOGO
+                                                    JOGO J
+                                                    INNER JOIN AMIGO A
+                                                    ON J.AMIGOID = A.AMIGOID
                                             WHERE
-                                                    JOGOID = @JOGOID";
+                                                    J.JOGOID = @JOGOID";
 
                 Jogo jogo = default(Jogo);
 
@@ -141,13 +148,16 @@ namespace SysGame.Infra.Data.Repository
             using (var con = Connection)
             {
                 string sqlObterJogoPorId = @"SELECT
-                                                    JOGOID AS JogoId,
-                                                    NOME AS Nome,
-                                                    EMPRESTADO AS Emprestado,
-                                                    PROPRIETARIOID AS ProprietarioId,
-                                                    AMIGOID AS AmigoId
+                                                    J.JOGOID AS JogoId,
+                                                    J.NOME AS Nome,
+                                                    J.EMPRESTADO AS Emprestado,
+                                                    J.PROPRIETARIOID AS ProprietarioId,
+                                                    J.AMIGOID AS AmigoId,
+                                                    A.Nome AS NomeDoAmigoComJogoEmprestado
                                             FROM
-                                                    JOGO";
+                                                    JOGO J
+                                                    INNER JOIN AMIGO A
+                                                    ON J.AMIGOID = A.AMIGOID";
 
                 IEnumerable<Jogo> jogo = default(IEnumerable<Jogo>);
 
@@ -157,6 +167,7 @@ namespace SysGame.Infra.Data.Repository
                         con.Open();
 
                     jogo = await con.QueryAsync<Jogo>(sqlObterJogoPorId);
+
                 }
                 catch (Exception)
                 {

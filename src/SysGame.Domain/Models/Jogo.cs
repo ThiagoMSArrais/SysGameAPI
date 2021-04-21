@@ -9,5 +9,6 @@ namespace SysGame.Domain.Models
         public bool Emprestado { get; set; }
         public Guid ProprietarioId { get; set; }
         public Guid? AmigoId { get; set; }
+        public string NomeDoAmigoComJogoEmprestado { get; set; }
     }
 }
